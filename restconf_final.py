@@ -47,6 +47,7 @@ def create(studentID):
     else:
         print('Error. Status Code: {}'.format(resp.status_code))
         # return "Error. Status Code: {}".format(resp.status_code)
+        return "Cannot create: Interface loopback {}".format(studentID)
         
 # print(create("64070215"))
 
@@ -65,8 +66,9 @@ def delete(studentID):
         return "Interface loopback {} is deleted successfully".format(studentID)
     else:
         print('Error. Status Code: {}'.format(resp.status_code))
+        return "Cannot delete: Interface loopback {}".format(studentID)
 
-# delete("64070215")
+print(delete("64070215"))
 
 
 def enable(studentID):
