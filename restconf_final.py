@@ -14,16 +14,18 @@ basicauth = ("admin", "cisco")
 
 
 def create(studentID):
+    print("debugger studentID")
+    print(type(studentID))
     yangConfig = {
         "ietf-interfaces:interface": {
-            "name": "Loopback_{}".format(studentID),
+            "name": "Loopback{}".format(studentID),
             "description": "Added by RESTCONF",
             "type": "iana-if-type:softwareLoopback",
             "enabled": True,
             "ietf-ip:ipv4": {
                 "address": [
                     {
-                        "ip": "172.30.{:s}.1".format(str(studentID)[5:8]),
+                        "ip": "172.30.{:s}.1".format(studentID[5:8]),
                         "netmask": "255.255.255.0"
                     }
                 ]
@@ -37,19 +39,22 @@ def create(studentID):
         headers=headers, 
         verify=False
         )
+    print("debugger create")
 
     if(resp.status_code >= 200 and resp.status_code <= 299):
         print("STATUS OK: {}".format(resp.status_code))
-        return "Interface loopback 66070123 is created successfully"
+        return "Interface loopback {} is created successfully".format(studentID)
     else:
         print('Error. Status Code: {}'.format(resp.status_code))
+        # return "Error. Status Code: {}".format(resp.status_code)
         
-# create(64070216)
+# print(create("64070215"))
 
 
-def delete():
+def delete(studentID):
+    api_url_delete = "https://10.0.15.189/restconf/data/ietf-interfaces:interfaces/interface=Loopback{}".format(studentID)
     resp = requests.delete(
-        api_url, 
+        api_url_delete, 
         auth=basicauth, 
         headers=headers, 
         verify=False
@@ -57,9 +62,11 @@ def delete():
 
     if(resp.status_code >= 200 and resp.status_code <= 299):
         print("STATUS OK: {}".format(resp.status_code))
-        return "Interface loopback 66070123 is deleted successfully"
+        return "Interface loopback {} is deleted successfully".format(studentID)
     else:
         print('Error. Status Code: {}'.format(resp.status_code))
+
+# delete("64070215")
 
 
 # def enable():

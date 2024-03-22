@@ -9,8 +9,7 @@
 import requests
 import json
 import time
-
-import restconf_final
+from restconf_final import *
 
 #######################################################################################
 # 2. Assign the Webex hard-coded access token to the variable accessToken.
@@ -80,22 +79,31 @@ while True:
 # 5. Complete the logic for each command
 
         if command == "create":
-            restconf_final.create(studentID)
+            responseMessage = create(studentID)
+            print("text : {}".format(responseMessage))
         elif command == "delete":
-            restconf_final.delete()
+            responseMessage = restconf_final.delete(studentID)
         elif command == "enable":
-            restconf_final.enable()
+            responseMessage = restconf_final.enable()
         elif command == "disable":
-            restconf_final.disable()
+            responseMessage = restconf_final.disable()
         elif command == "status":
-            restconf_final.status()
+            responseMessage = restconf_final.status()
         else:
             responseMessage = "Error: No command or unknown command"
         
 # 6. Complete the code to post the message to the Webex Teams room.
         
         # the Webex Teams HTTP headers, including the Authoriztion and Content-Type
-        postHTTPHeaders = HTTPHeaders = {"Authorization": accessToken, "Content-Type": application/json} ##อาจจะยังไม่ถูกต้อง
+        
+        # responseMessage = "hello world"
+        
+        postHTTPHeaders = {"Authorization": accessToken, "Content-Type": "application/json"}
+        
+        postHTTPHeaders = {
+            "Authorization": accessToken,
+            "Content-Type": "application/json"
+        }
 
         # The Webex Teams POST JSON data
         # - "roomId" is is ID of the selected room
@@ -104,7 +112,7 @@ while True:
 
         # Post the call to the Webex Teams message API.
         r = requests.post(
-            "<!!!REPLACEME with URL of Webex Teams Messages API!!!>",
+            "https://webexapis.com/v1/messages",
             data=json.dumps(postData),
             headers=postHTTPHeaders,
         )
