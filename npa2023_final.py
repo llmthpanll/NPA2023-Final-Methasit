@@ -6,19 +6,21 @@
 #######################################################################################
 # 1. Import libraries for API requests, JSON formatting, time, and (restconf_final or netconf_final).
 
-<!!!REPLACEME with code for libraries>
+import requests
+import json
+import time
 
 #######################################################################################
 # 2. Assign the Webex hard-coded access token to the variable accessToken.
 
-accessToken = "Bearer <!!!REPLACEME with hard-coded token!!!>"
+accessToken = "Bearer ZTFlZjE0Y2UtMWVmNi00NjUwLTg3MTEtYjAzNjgxYmQ1ZDI0Njc3YmNhYjctODNm_P0A1_6a2cc597-4b00-40e5-8b6c-999a42f528a5"
 
 #######################################################################################
 # 3. Prepare parameters get the latest message for messages API.
 
 # Defines a variable that will hold the roomId
 roomIdToGetMessages = (
-    "<!!!REPLACEME with roomID of the NPA2023 Webex Teams room!!!>"
+    "Y2lzY29zcGFyazovL3VybjpURUFNOnVzLXdlc3QtMl9yL1JPT00vODFmMDk4MjAtYjY4OC0xMWVlLTgzMDItZWZhNWNiYmRkNjg0"
 )
 
 while True:
@@ -31,7 +33,7 @@ while True:
     getParameters = {"roomId": roomIdToGetMessages, "max": 1}
 
     # the Webex Teams HTTP header, including the Authoriztion
-    getHTTPHeader = {"Authorization": <!!!REPLACEME!!!>}
+    getHTTPHeader = {"Authorization": accessToken}
 
 # 4. Provide the URL to the Webex Teams messages API, and extract location from the received message.
     
@@ -39,9 +41,9 @@ while True:
     # - Use the GetParameters to get only the latest message.
     # - Store the message in the "r" variable.
     r = requests.get(
-        "<!!!REPLACEME with URL of Webex Teams Messages API!!!>",
-        params=<!!!REPLACEME with HTTP parameters!!!>,
-        headers=<!!!REPLACEME with HTTP headers!!!>,
+        "https://webexapis.com/v1/messages",
+        params=getParameters,
+        headers=getHTTPHeader,
     )
     # verify if the retuned HTTP status code is 200/OK
     if not r.status_code == 200:
@@ -65,10 +67,12 @@ while True:
 
     # check if the text of the message starts with the magic character "/" followed by your studentID and a space and followed by a command name
     #  e.g.  "/66070123 create"
-    if message.find("<!!!REPLACEME!!!>") == 0:
+    if message.find("/") == 0:
 
         # extract the command
-        command = <!!!REPLACEME!!!>
+        # message = message[message.find(" ")+1:]
+        studentID = message[1:message.find(" ")]
+        command = message[message.find(" ")+1:]
         print(command)
 
 # 5. Complete the logic for each command
