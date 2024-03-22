@@ -127,27 +127,38 @@ def disable(studentID):
 # print(disable("64070215"))
 
 
-# def status():
-#     api_url_status = "<!!!REPLACEME with URL of RESTCONF Operational API!!!>"
+def status(studentID):
+    api_url_status = "https://10.0.15.189/restconf/data/ietf-interfaces:interfaces/interface=Loopback{}".format(studentID)
+    yangConfig = {
+    "ietf-interfaces:interface": {
+            "name": "Loopback64070215",
+            "description": "Added by RESTCONF",
+            "type": "iana-if-type:softwareLoopback",
+            "enabled": False
+        }
+    }
 
-#     resp = requests.<!!!REPLACEME with the proper HTTP Method!!!>(
-#         <!!!REPLACEME with URL!!!>, 
-#         auth=basicauth, 
-#         headers=headers, 
-#         verify=False
-#         )
+    resp = requests.get(
+        api_url_status, 
+        data=json.dumps(yangConfig), 
+        auth=basicauth, 
+        headers=headers, 
+        verify=False
+        )
 
-#     if(resp.status_code >= 200 and resp.status_code <= 299):
-#         print("STATUS OK: {}".format(resp.status_code))
-#         response_json = resp.json()
-#         admin_status = <!!!REPLACEME!!!>
-#         oper_status = <!!!REPLACEME!!!>
-#         if admin_status == 'up' and oper_status == 'up':
-#             return "<!!!REPLACEME with proper message!!!>"
-#         elif admin_status == 'down' and oper_status == 'down':
-#             return "<!!!REPLACEME with proper message!!!>"
-#     elif(resp.status_code == 404):
-#         print("STATUS NOT FOUND: {}".format(resp.status_code))
-#         return "Interface loopback 66070123 is enabled"
-#     else:
-#         print('Error. Status Code: {}'.format(resp.status_code))
+    if(resp.status_code >= 200 and resp.status_code <= 299):
+        print("STATUS OK: {}".format(resp.status_code))
+        response_json = resp.json()
+        admin_status = response_json['ietf-interfaces:interface']['enabled']
+        oper_status = response_json['ietf-interfaces:interface']['enabled']
+        if admin_status == 'up' and oper_status == 'up':
+            return "Interface loopback {} is enabled".format(studentID)
+        elif admin_status == 'down' and oper_status == 'down':
+            return "<!!!REPLACEME with proper message!!!>"
+    elif(resp.status_code == 404):
+        print("STATUS NOT FOUND: {}".format(resp.status_code))
+        return "No Interface loopback {}".format(studentID)
+    else:
+        print('Error. Status Code: {}'.format(resp.status_code))
+        
+
