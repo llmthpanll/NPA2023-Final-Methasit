@@ -78,7 +78,7 @@ def enable(studentID):
             "type": "iana-if-type:softwareLoopback",
             "enabled": True
         }
-}
+    }
 
     resp = requests.put(
         api_url_put, 
@@ -97,22 +97,32 @@ def enable(studentID):
 # print(enable("64070215"))
 
 
-# def disable():
-#     yangConfig = <!!!REPLACEME with YANG data!!!>
+def disable(studentID):
+    api_url_put = "https://10.0.15.189/restconf/data/ietf-interfaces:interfaces/interface=Loopback{}".format(studentID)
+    yangConfig = {
+    "ietf-interfaces:interface": {
+            "name": "Loopback64070215",
+            "description": "Added by RESTCONF",
+            "type": "iana-if-type:softwareLoopback",
+            "enabled": False
+        }
+    }
 
-#     resp = requests.<!!!REPLACEME with the proper HTTP Method!!!>(
-#         <!!!REPLACEME with URL!!!>, 
-#         data=json.dumps(<!!!REPLACEME with yangConfig!!!>), 
-#         auth=basicauth, 
-#         headers=headers, 
-#         verify=False
-#         )
+    resp = requests.put(
+        api_url_put, 
+        data=json.dumps(yangConfig), 
+        auth=basicauth, 
+        headers=headers, 
+        verify=False
+        )
 
-#     if(resp.status_code >= 200 and resp.status_code <= 299):
-#         print("STATUS OK: {}".format(resp.status_code))
-#         return "Interface loopback 66070123 is shutdowned successfully"
-#     else:
-#         print('Error. Status Code: {}'.format(resp.status_code))
+    if(resp.status_code >= 200 and resp.status_code <= 299):
+        print("STATUS OK: {}".format(resp.status_code))
+        return "Interface loopback 66070123 is shutdowned successfully"
+    else:
+        print('Error. Status Code: {}'.format(resp.status_code))
+
+# print(disable("64070215"))
 
 
 # def status():

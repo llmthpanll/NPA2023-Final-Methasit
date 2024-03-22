@@ -80,13 +80,13 @@ while True:
 
         if command == "create":
             responseMessage = restconf_final.create(studentID)
-            print("text : {}".format(responseMessage))
+            # print("text : {}".format(responseMessage))
         elif command == "delete":
             responseMessage = restconf_final.delete(studentID)
         elif command == "enable":
             responseMessage = restconf_final.enable(studentID)
-        # elif command == "disable":
-        #     responseMessage = restconf_final.disable(studentID)
+        elif command == "disable":
+            responseMessage = restconf_final.disable(studentID)
         # elif command == "status":
         #     responseMessage = restconf_final.status(studentID)
         else:
