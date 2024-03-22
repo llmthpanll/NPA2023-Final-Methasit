@@ -69,12 +69,20 @@ def delete(studentID):
 # delete("64070215")
 
 
-def enable():
-    yangConfig = <!!!REPLACEME with YANG data!!!>
+def enable(studentID):
+    api_url_put = "https://10.0.15.189/restconf/data/ietf-interfaces:interfaces/interface=Loopback{}".format(studentID)
+    yangConfig = {
+    "ietf-interfaces:interface": {
+            "name": "Loopback64070215",
+            "description": "Added by RESTCONF",
+            "type": "iana-if-type:softwareLoopback",
+            "enabled": True
+        }
+}
 
-    resp = requests.<!!!REPLACEME with the proper HTTP Method!!!>(
-        <!!!REPLACEME with URL!!!>, 
-        data=json.dumps(<!!!REPLACEME with yangConfig!!!>), 
+    resp = requests.put(
+        api_url_put, 
+        data=json.dumps(yangConfig), 
         auth=basicauth, 
         headers=headers, 
         verify=False
@@ -85,6 +93,8 @@ def enable():
         return "Interface loopback {} is enabled successfully".format(studentID)
     else:
         print('Error. Status Code: {}'.format(resp.status_code))
+        
+# print(enable("64070215"))
 
 
 # def disable():
