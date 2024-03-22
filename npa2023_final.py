@@ -9,7 +9,7 @@
 import requests
 import json
 import time
-from restconf_final import *
+import restconf_final
 
 #######################################################################################
 # 2. Assign the Webex hard-coded access token to the variable accessToken.
@@ -21,7 +21,7 @@ accessToken = "Bearer ZTFlZjE0Y2UtMWVmNi00NjUwLTg3MTEtYjAzNjgxYmQ1ZDI0Njc3YmNhYj
 
 # Defines a variable that will hold the roomId
 roomIdToGetMessages = (
-    "Y2lzY29zcGFyazovL3VybjpURUFNOnVzLXdlc3QtMl9yL1JPT00vODFmMDk4MjAtYjY4OC0xMWVlLTgzMDItZWZhNWNiYmRkNjg0"
+    "Y2lzY29zcGFyazovL3VzL1JPT00vZjBkZjY0NDAtYWU5Yi0xMWVlLTg5MGMtMGQzNjUwOTJlMmUy"
 )
 
 while True:
@@ -79,16 +79,16 @@ while True:
 # 5. Complete the logic for each command
 
         if command == "create":
-            responseMessage = create(studentID)
+            responseMessage = restconf_final.create(studentID)
             print("text : {}".format(responseMessage))
         elif command == "delete":
             responseMessage = restconf_final.delete(studentID)
         elif command == "enable":
-            responseMessage = restconf_final.enable()
-        elif command == "disable":
-            responseMessage = restconf_final.disable()
-        elif command == "status":
-            responseMessage = restconf_final.status()
+            responseMessage = restconf_final.enable(studentID)
+        # elif command == "disable":
+        #     responseMessage = restconf_final.disable(studentID)
+        # elif command == "status":
+        #     responseMessage = restconf_final.status(studentID)
         else:
             responseMessage = "Error: No command or unknown command"
         

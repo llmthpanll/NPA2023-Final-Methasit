@@ -14,8 +14,8 @@ basicauth = ("admin", "cisco")
 
 
 def create(studentID):
-    print("debugger studentID")
-    print(type(studentID))
+    # print("debugger studentID")
+    # print(type(studentID))
     yangConfig = {
         "ietf-interfaces:interface": {
             "name": "Loopback{}".format(studentID),
@@ -39,7 +39,7 @@ def create(studentID):
         headers=headers, 
         verify=False
         )
-    print("debugger create")
+    # print("debugger create")
 
     if(resp.status_code >= 200 and resp.status_code <= 299):
         print("STATUS OK: {}".format(resp.status_code))
@@ -69,22 +69,22 @@ def delete(studentID):
 # delete("64070215")
 
 
-# def enable():
-#     yangConfig = <!!!REPLACEME with YANG data!!!>
+def enable():
+    yangConfig = <!!!REPLACEME with YANG data!!!>
 
-#     resp = requests.<!!!REPLACEME with the proper HTTP Method!!!>(
-#         <!!!REPLACEME with URL!!!>, 
-#         data=json.dumps(<!!!REPLACEME with yangConfig!!!>), 
-#         auth=basicauth, 
-#         headers=headers, 
-#         verify=False
-#         )
+    resp = requests.<!!!REPLACEME with the proper HTTP Method!!!>(
+        <!!!REPLACEME with URL!!!>, 
+        data=json.dumps(<!!!REPLACEME with yangConfig!!!>), 
+        auth=basicauth, 
+        headers=headers, 
+        verify=False
+        )
 
-#     if(resp.status_code >= 200 and resp.status_code <= 299):
-#         print("STATUS OK: {}".format(resp.status_code))
-#         return "Interface loopback 66070123 is enabled successfully"
-#     else:
-#         print('Error. Status Code: {}'.format(resp.status_code))
+    if(resp.status_code >= 200 and resp.status_code <= 299):
+        print("STATUS OK: {}".format(resp.status_code))
+        return "Interface loopback {} is enabled successfully".format(studentID)
+    else:
+        print('Error. Status Code: {}'.format(resp.status_code))
 
 
 # def disable():
