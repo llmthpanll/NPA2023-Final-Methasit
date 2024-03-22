@@ -10,6 +10,8 @@ import requests
 import json
 import time
 
+import restconf_final
+
 #######################################################################################
 # 2. Assign the Webex hard-coded access token to the variable accessToken.
 
@@ -78,15 +80,15 @@ while True:
 # 5. Complete the logic for each command
 
         if command == "create":
-            <!!!REPLACEME with code for create command!!!>     
+            restconf_final.create(studentID)
         elif command == "delete":
-            <!!!REPLACEME with code for delete command!!!>
+            restconf_final.delete()
         elif command == "enable":
-            <!!!REPLACEME with code for enable command!!!>
+            restconf_final.enable()
         elif command == "disable":
-            <!!!REPLACEME with code for disable command!!!>
+            restconf_final.disable()
         elif command == "status":
-            <!!!REPLACEME with code for status command!!!>
+            restconf_final.status()
         else:
             responseMessage = "Error: No command or unknown command"
         
