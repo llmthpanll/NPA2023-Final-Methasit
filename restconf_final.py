@@ -129,14 +129,6 @@ def disable(studentID):
 
 def status(studentID):
     api_url_status = "https://10.0.15.189/restconf/data/ietf-interfaces:interfaces/interface=Loopback{}".format(studentID)
-    yangConfig = {
-    "ietf-interfaces:interface": {
-            "name": "Loopback64070215",
-            "description": "Added by RESTCONF",
-            "type": "iana-if-type:softwareLoopback",
-            "enabled": False
-        }
-    }
 
     resp = requests.get(
         api_url_delete, 
@@ -160,4 +152,4 @@ def status(studentID):
     else:
         print('Error. Status Code: {}'.format(resp.status_code))
         
-
+# print(status("64070215"))
