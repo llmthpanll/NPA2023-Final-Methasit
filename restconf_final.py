@@ -139,8 +139,7 @@ def status(studentID):
     }
 
     resp = requests.get(
-        api_url_status, 
-        data=json.dumps(yangConfig), 
+        api_url_delete, 
         auth=basicauth, 
         headers=headers, 
         verify=False
